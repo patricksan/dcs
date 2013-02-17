@@ -11,6 +11,13 @@
 # Folders
 dist/
 war/WEB-INF/classes
-war/WEB-INF/DcsWSService
-war/WEB-INF/deploy
-war/dcsapp
+gwt/
+.gwt/
+war/WEB-INF/lib/.DS_Store
+/dist
+war/.DS_Store
+gwt-unitCache/
+war/WEB-INF/.DS_Store
+war/WEB-INF/lib/gwt-servlet.jar
+*.bak
+

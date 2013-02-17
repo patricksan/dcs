@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from DcsWS WSDL service -->
+
+  <service name="DcsWS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.server.dcs.moogu.com"/>
+      <parameter name="wsdlServiceElement" value="DcsWS"/>
+      <parameter name="schemaQualified" value="http://ws.server.dcs.moogu.com"/>
+      <parameter name="wsdlServicePort" value="DcsWS"/>
+      <parameter name="className" value="com.moogu.dcs.server.ws.DcsWS"/>
+      <parameter name="wsdlPortType" value="DcsWS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="callOperation" qname="operNS:callOperation" soapAction="">
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:operationName" type="tns:string"/>
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:arguments"     type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getSiteConfiguration"    qname="operNS:getSiteConfiguration"    soapAction="" />
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getMachineConfiguration" qname="operNS:getMachineConfiguration" soapAction="" />
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getShiftConfiguration"   qname="operNS:getShiftConfiguration"   soapAction="" />
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getMachineActualStates"  qname="operNS:getMachineActualStates"  soapAction="" >
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getShiftResults"        qname="operNS:getShiftResults"        soapAction="" >
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId"  type="tns:int"/>
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:shiftId" type="tns:int"/>
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date"    type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getLatestShiftResults"  qname="operNS:getLatestShiftResults"  soapAction="" >
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId"  type="tns:int"/>
+        <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:shiftId" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MapEntryVO"           type="java:com.moogu.dcs.server.ws.model.MapEntryVO"           serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:SiteConfiguration"    type="java:com.moogu.dcs.server.ws.model.SiteConfiguration"    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MachineConfiguration" type="java:com.moogu.dcs.server.ws.model.MachineConfiguration" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:ShiftConfiguration"   type="java:com.moogu.dcs.server.ws.model.ShiftConfiguration"   serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MachineState"         type="java:com.moogu.dcs.server.ws.model.MachineState"         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:ShiftResult"          type="java:com.moogu.dcs.server.ws.model.ShiftResult"          serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
