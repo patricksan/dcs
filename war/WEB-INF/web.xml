@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  
+	<!-- Listener -->
+	<listener>
+		<listener-class>
+			com.moogu.dcs.server.feature.management.DcsServletContextListener
+        </listener-class>
+	</listener>
+    
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>LoginModuleRemoteServiceImpl</servlet-name>
+		<servlet-class>
+			com.moogu.dcs.server.LoginModuleRemoteServiceImpl
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginModuleRemoteServiceImpl</servlet-name>
+		<url-pattern>/dcsapp/loginService</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CommonModuleRpc</servlet-name>
+		<servlet-class>
+			com.moogu.dcs.server.CommonModuleRpcServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommonModuleRpc</servlet-name>
+		<url-pattern>/dcsapp/commonService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+        <servlet-name>ReportingModuleRpc</servlet-name>
+        <servlet-class>
+           com.moogu.dcs.server.ReportingModuleRpcServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportingModuleRpc</servlet-name>
+        <url-pattern>/dcsapp/reportingService</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EnvironmentsServlet</servlet-name>
+		<servlet-class>
+			com.moogu.dcs.server.feature.management.EnvironmentsServlet
+        </servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnvironmentsServlet</servlet-name>
+		<url-pattern>
+			/monitor/environmentsServlet
+        </url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- Allow to change LOG4J configuration at runtime -->
+	<servlet>
+		<servlet-name>log4jConf</servlet-name>
+		<servlet-class>it.openutils.log4j.Log4jConfigurationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>log4jConf</servlet-name>
+		<url-pattern>/monitor/log4j</url-pattern>
+	</servlet-mapping>
+
+
+    <!-- Axis Configuration - Web Services here ... -->
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/servlet/AdminServlet</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

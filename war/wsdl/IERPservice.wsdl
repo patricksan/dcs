@@ -1,0 +1,371 @@
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:tns="http://os-x.eu" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+	xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsa10="http://www.w3.org/2005/08/addressing" targetNamespace="http://os-x.eu"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+		xmlns="http://schemas.xmlsoap.org/ws/2004/09/mex">
+		<wsx:MetadataSection xmlns=""
+			Dialect="http://schemas.xmlsoap.org/wsdl/" Identifier="http://os-x.eu">
+			<wsdl:types>
+				<xsd:schema targetNamespace="http://os-x.eu/Imports">
+					<xsd:import namespace="http://os-x.eu" />
+					<xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+					<xsd:import
+						namespace="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP" />
+				</xsd:schema>
+			</wsdl:types>
+			<wsdl:message name="IERPservice_GetSiteConfiguration_InputMessage">
+				<wsdl:part name="parameters" element="tns:GetSiteConfiguration" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetSiteConfiguration_OutputMessage">
+				<wsdl:part name="parameters" element="tns:GetSiteConfigurationResponse" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetMachineConfiguration_InputMessage">
+				<wsdl:part name="parameters" element="tns:GetMachineConfiguration" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetMachineConfiguration_OutputMessage">
+				<wsdl:part name="parameters" element="tns:GetMachineConfigurationResponse" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetShiftConfiguration_InputMessage">
+				<wsdl:part name="parameters" element="tns:GetShiftConfiguration" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetShiftConfiguration_OutputMessage">
+				<wsdl:part name="parameters" element="tns:GetShiftConfigurationResponse" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetMachineStates_InputMessage">
+				<wsdl:part name="parameters" element="tns:GetMachineStates" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetMachineStates_OutputMessage">
+				<wsdl:part name="parameters" element="tns:GetMachineStatesResponse" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetShiftResults_InputMessage">
+				<wsdl:part name="parameters" element="tns:GetShiftResults" />
+			</wsdl:message>
+			<wsdl:message name="IERPservice_GetShiftResults_OutputMessage">
+				<wsdl:part name="parameters" element="tns:GetShiftResultsResponse" />
+			</wsdl:message>
+			<wsdl:portType name="IERPservice">
+				<wsdl:operation name="GetSiteConfiguration">
+					<wsdl:input wsam:Action="http://os-x.eu/IERPservice/GetSiteConfiguration"
+						message="tns:IERPservice_GetSiteConfiguration_InputMessage" />
+					<wsdl:output
+						wsam:Action="http://os-x.eu/IERPservice/GetSiteConfigurationResponse"
+						message="tns:IERPservice_GetSiteConfiguration_OutputMessage" />
+				</wsdl:operation>
+				<wsdl:operation name="GetMachineConfiguration">
+					<wsdl:input wsam:Action="http://os-x.eu/IERPservice/GetMachineConfiguration"
+						message="tns:IERPservice_GetMachineConfiguration_InputMessage" />
+					<wsdl:output
+						wsam:Action="http://os-x.eu/IERPservice/GetMachineConfigurationResponse"
+						message="tns:IERPservice_GetMachineConfiguration_OutputMessage" />
+				</wsdl:operation>
+				<wsdl:operation name="GetShiftConfiguration">
+					<wsdl:input wsam:Action="http://os-x.eu/IERPservice/GetShiftConfiguration"
+						message="tns:IERPservice_GetShiftConfiguration_InputMessage" />
+					<wsdl:output
+						wsam:Action="http://os-x.eu/IERPservice/GetShiftConfigurationResponse"
+						message="tns:IERPservice_GetShiftConfiguration_OutputMessage" />
+				</wsdl:operation>
+				<wsdl:operation name="GetMachineStates">
+					<wsdl:input wsam:Action="http://os-x.eu/IERPservice/GetMachineStates"
+						message="tns:IERPservice_GetMachineStates_InputMessage" />
+					<wsdl:output wsam:Action="http://os-x.eu/IERPservice/GetMachineStatesResponse"
+						message="tns:IERPservice_GetMachineStates_OutputMessage" />
+				</wsdl:operation>
+				<wsdl:operation name="GetShiftResults">
+					<wsdl:input wsam:Action="http://os-x.eu/IERPservice/GetShiftResults"
+						message="tns:IERPservice_GetShiftResults_InputMessage" />
+					<wsdl:output wsam:Action="http://os-x.eu/IERPservice/GetShiftResultsResponse"
+						message="tns:IERPservice_GetShiftResults_OutputMessage" />
+				</wsdl:operation>
+			</wsdl:portType>
+		</wsx:MetadataSection>
+		<wsx:MetadataSection xmlns=""
+			Dialect="http://www.w3.org/2001/XMLSchema" Identifier="http://os-x.eu">
+			<xs:schema xmlns:tns="http://os-x.eu" elementFormDefault="qualified"
+				targetNamespace="http://os-x.eu" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+				<xs:import
+					namespace="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP" />
+				<xs:element name="GetSiteConfiguration">
+					<xs:complexType>
+						<xs:sequence />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetSiteConfigurationResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="GetSiteConfigurationResult"
+								nillable="true"
+								xmlns:q1="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+								type="q1:ArrayOfSiteConfiguration" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetMachineConfiguration">
+					<xs:complexType>
+						<xs:sequence />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetMachineConfigurationResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="GetMachineConfigurationResult"
+								nillable="true"
+								xmlns:q2="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+								type="q2:ArrayOfMachineConfiguration" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetShiftConfiguration">
+					<xs:complexType>
+						<xs:sequence />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetShiftConfigurationResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="GetShiftConfigurationResult"
+								nillable="true"
+								xmlns:q3="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+								type="q3:ArrayOfShiftConfiguration" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetMachineStates">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="SiteID" type="xs:int" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetMachineStatesResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="GetMachineStatesResult"
+								nillable="true"
+								xmlns:q4="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+								type="q4:ArrayOfMachineState" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetShiftResults">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="SiteID" type="xs:int" />
+							<xs:element minOccurs="0" name="ShiftID" type="xs:int" />
+							<xs:element minOccurs="0" name="Date" nillable="true"
+								type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GetShiftResultsResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="GetShiftResultsResult"
+								nillable="true"
+								xmlns:q5="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+								type="q5:ArrayOfShiftResult" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:schema>
+		</wsx:MetadataSection>
+		<wsx:MetadataSection xmlns=""
+			Dialect="http://www.w3.org/2001/XMLSchema" Identifier="http://schemas.microsoft.com/2003/10/Serialization/">
+			<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/"
+				attributeFormDefault="qualified" elementFormDefault="qualified"
+				targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema">
+				<xs:element name="anyType" nillable="true" type="xs:anyType" />
+				<xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+				<xs:element name="base64Binary" nillable="true"
+					type="xs:base64Binary" />
+				<xs:element name="boolean" nillable="true" type="xs:boolean" />
+				<xs:element name="byte" nillable="true" type="xs:byte" />
+				<xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+				<xs:element name="decimal" nillable="true" type="xs:decimal" />
+				<xs:element name="double" nillable="true" type="xs:double" />
+				<xs:element name="float" nillable="true" type="xs:float" />
+				<xs:element name="int" nillable="true" type="xs:int" />
+				<xs:element name="long" nillable="true" type="xs:long" />
+				<xs:element name="QName" nillable="true" type="xs:QName" />
+				<xs:element name="short" nillable="true" type="xs:short" />
+				<xs:element name="string" nillable="true" type="xs:string" />
+				<xs:element name="unsignedByte" nillable="true"
+					type="xs:unsignedByte" />
+				<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+				<xs:element name="unsignedLong" nillable="true"
+					type="xs:unsignedLong" />
+				<xs:element name="unsignedShort" nillable="true"
+					type="xs:unsignedShort" />
+				<xs:element name="char" nillable="true" type="tns:char" />
+				<xs:simpleType name="char">
+					<xs:restriction base="xs:int" />
+				</xs:simpleType>
+				<xs:element name="duration" nillable="true" type="tns:duration" />
+				<xs:simpleType name="duration">
+					<xs:restriction base="xs:duration">
+						<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+						<xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+						<xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+					</xs:restriction>
+				</xs:simpleType>
+				<xs:element name="guid" nillable="true" type="tns:guid" />
+				<xs:simpleType name="guid">
+					<xs:restriction base="xs:string">
+						<xs:pattern
+							value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+					</xs:restriction>
+				</xs:simpleType>
+				<xs:attribute name="FactoryType" type="xs:QName" />
+				<xs:attribute name="Id" type="xs:ID" />
+				<xs:attribute name="Ref" type="xs:IDREF" />
+			</xs:schema>
+		</wsx:MetadataSection>
+		<wsx:MetadataSection xmlns=""
+			Dialect="http://www.w3.org/2001/XMLSchema" Identifier="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP">
+			<xs:schema
+				xmlns:tns="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+				elementFormDefault="qualified"
+				targetNamespace="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema">
+				<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+				<xs:complexType name="ArrayOfSiteConfiguration">
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="SiteConfiguration"
+							type="tns:SiteConfiguration" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ArrayOfSiteConfiguration" nillable="true"
+					type="tns:ArrayOfSiteConfiguration" />
+				<xs:complexType name="SiteConfiguration">
+					<xs:annotation>
+						<xs:appinfo>
+							<IsValueType
+								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+						</xs:appinfo>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="SiteID" type="xs:int" />
+						<xs:element minOccurs="0" name="SiteName" nillable="true"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="SiteConfiguration" nillable="true"
+					type="tns:SiteConfiguration" />
+				<xs:complexType name="ArrayOfMachineConfiguration">
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded"
+							name="MachineConfiguration" type="tns:MachineConfiguration" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ArrayOfMachineConfiguration" nillable="true"
+					type="tns:ArrayOfMachineConfiguration" />
+				<xs:complexType name="MachineConfiguration">
+					<xs:annotation>
+						<xs:appinfo>
+							<IsValueType
+								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+						</xs:appinfo>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="MachineClassID" type="xs:int" />
+						<xs:element minOccurs="0" name="MachineClassName"
+							nillable="true" type="xs:string" />
+						<xs:element minOccurs="0" name="MachineDescription"
+							nillable="true" type="xs:string" />
+						<xs:element minOccurs="0" name="MachineID" type="xs:int" />
+						<xs:element minOccurs="0" name="MachineName" nillable="true"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="ShiftModelID" type="xs:int" />
+						<xs:element minOccurs="0" name="SiteID" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="MachineConfiguration" nillable="true"
+					type="tns:MachineConfiguration" />
+				<xs:complexType name="ArrayOfShiftConfiguration">
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded"
+							name="ShiftConfiguration" type="tns:ShiftConfiguration" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ArrayOfShiftConfiguration" nillable="true"
+					type="tns:ArrayOfShiftConfiguration" />
+				<xs:complexType name="ShiftConfiguration">
+					<xs:annotation>
+						<xs:appinfo>
+							<IsValueType
+								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+						</xs:appinfo>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ShiftID" type="xs:int" />
+						<xs:element minOccurs="0" name="ShiftLength" type="xs:int" />
+						<xs:element minOccurs="0" name="ShiftModelID" type="xs:int" />
+						<xs:element minOccurs="0" name="ShiftModelName"
+							nillable="true" type="xs:string" />
+						<xs:element minOccurs="0" name="ShiftName" nillable="true"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="ShiftStart" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ShiftConfiguration" nillable="true"
+					type="tns:ShiftConfiguration" />
+				<xs:complexType name="ArrayOfMachineState">
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="MachineState"
+							type="tns:MachineState" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ArrayOfMachineState" nillable="true"
+					type="tns:ArrayOfMachineState" />
+				<xs:complexType name="MachineState">
+					<xs:annotation>
+						<xs:appinfo>
+							<IsValueType
+								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+						</xs:appinfo>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="DateCreated" nillable="true"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="MachineID" type="xs:int" />
+						<xs:element minOccurs="0" name="Speed" type="xs:int" />
+						<xs:element minOccurs="0" name="State" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="MachineState" nillable="true"
+					type="tns:MachineState" />
+				<xs:complexType name="ArrayOfShiftResult">
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="ShiftResult"
+							type="tns:ShiftResult" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ArrayOfShiftResult" nillable="true"
+					type="tns:ArrayOfShiftResult" />
+				<xs:complexType name="ShiftResult">
+					<xs:annotation>
+						<xs:appinfo>
+							<IsValueType
+								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+						</xs:appinfo>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="CounterIn" type="xs:int" />
+						<xs:element minOccurs="0" name="CounterOut" type="xs:int" />
+						<xs:element minOccurs="0" name="MachineID" type="xs:int" />
+						<xs:element minOccurs="0" name="TimeRun" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+				<xs:element name="ShiftResult" nillable="true" type="tns:ShiftResult" />
+			</xs:schema>
+		</wsx:MetadataSection>
+	</Metadata>
+</wsdl:definitions>

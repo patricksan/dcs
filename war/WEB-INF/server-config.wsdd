@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="DcsWS" provider="java:RPC" style="wrapped" use="literal">
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="callOperation" qname="operNS:callOperation" soapAction="">
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:operationName" type="tns:string"/>
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:arguments"     type="tns:string"/>
+  </operation>
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getSiteConfiguration"    qname="operNS:getSiteConfiguration"    soapAction="" />
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getMachineConfiguration" qname="operNS:getMachineConfiguration" soapAction="" />
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getShiftConfiguration"   qname="operNS:getShiftConfiguration"   soapAction="" />
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getMachineActualStates"  qname="operNS:getMachineActualStates"  soapAction="">
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId" type="tns:int"/>
+  </operation>
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getShiftResults"        qname="operNS:getShiftResults"        soapAction="" >
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId"  type="tns:int"/>
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:shiftId" type="tns:int"/>
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date"    type="tns:string"/>
+  </operation>
+  <operation xmlns:operNS="http://web.ilms.be.fortis.com" name="getLatestShiftResults"  qname="operNS:getLatestShiftResults"  soapAction="" >
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:siteId"  type="tns:int"/>
+    <parameter xmlns:pns="http://web.ilms.be.fortis.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:shiftId" type="tns:int"/>
+  </operation>
+  <parameter name="allowedMethods" value="*"/>
+
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="wsdlPortType" value="DcsWS"/>
+  <parameter name="className" value="com.moogu.dcs.server.ws.DcsWS"/>
+  <parameter name="wsdlServicePort" value="DcsWS"/>
+  <parameter name="schemaQualified" value="http://ws.server.dcs.moogu.com"/>
+  <parameter name="wsdlTargetNamespace" value="http://ws.server.dcs.moogu.com"/>
+  <parameter name="wsdlServiceElement" value="DcsWS"/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MapEntryVO"           type="java:com.moogu.dcs.server.ws.model.MapEntryVO"           serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:SiteConfiguration"    type="java:com.moogu.dcs.server.ws.model.SiteConfiguration"    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MachineConfiguration" type="java:com.moogu.dcs.server.ws.model.MachineConfiguration" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:ShiftConfiguration"   type="java:com.moogu.dcs.server.ws.model.ShiftConfiguration"   serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:MachineState"         type="java:com.moogu.dcs.server.ws.model.MachineState"         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  <typeMapping xmlns:ns="http://ws.server.dcs.moogu.com" qname="ns:ShiftResult"          type="java:com.moogu.dcs.server.ws.model.ShiftResult"          serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+</deployment>

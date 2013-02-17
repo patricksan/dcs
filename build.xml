@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="dcs" default="war" basedir=".">
+
+	<property environment="env" />
+
+	<property name="build.label" value="Build on ${env.BUILD_ID}, #${env.BUILD_NUMBER}" />
+	<property name="prod.src" location="src" />
+	<property name="test.src" location="test/java" />
+	<property name="prod.classes.dist" location="dist/classes/prod" />
+	<property name="test.classes.dist" location="dist/classes/test" />
+	<property name="prod.libs.dir" location="war/WEB-INF/lib" />
+	<property name="sql.dir" location="sql" />
+	<property name="test.reports.dir" location="dist/reports/test" />
+	<property name="war.dir" location="dist/war" />
+	<property name="wsdl.dir" location="war/wsdl" />
+
+	<path id="prod.compile.libs">
+		<fileset dir="${prod.libs.dir}" />
+	</path>
+
+	<path id="test.compile.libs">
+		<fileset dir="test/lib" />
+	</path>
+	
+	<path id="test.classpath">
+		<path refid="prod.compile.libs" />
+		<path refid="test.compile.libs" />
+		<pathelement location="${prod.classes.dist}" />
+		<pathelement location="${test.classes.dist}" />
+	</path>
+
+	<target name="clean">
+		<delete dir="dist" excludes=".svn" includeemptydirs="true" />
+		<delete dir="${war.dir}/WEB-INF/dcsapp" includeemptydirs="true" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${prod.classes.dist}" />
+		<javac srcdir="${prod.src}" destdir="${prod.classes.dist}" classpathref="prod.compile.libs" debug="true" nowarn="true" source="1.6" target="1.6" includeantruntime="true" debuglevel="lines,vars,source" />
+		<copy todir="${prod.classes.dist}">
+			<fileset dir="${prod.src}">
+				<exclude name="**/*.java" />
+				<exclude name="**/doc-files/**/*" />
+				<exclude name="**/package.html" />
+				<exclude name="**/.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile_test" depends="compile">
+		<mkdir dir="${test.classes.dist}" />
+		<javac srcdir="${test.src}" destdir="${test.classes.dist}" encoding="utf-8" source="1.6" target="1.6" nowarn="true" debug="true" debuglevel="lines,vars,source">
+			<classpath>
+				<path location="${prod.classes.dist}" />
+				<path refid="prod.compile.libs" />
+				<path refid="test.compile.libs" />
+			</classpath>
+		</javac>
+		<copy todir="${test.classes.dist}">
+			<fileset dir="${test.src}">
+				<exclude name="**/*.java" />
+				<exclude name="**/doc-files/**/*" />
+				<exclude name="**/index.html" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="gwtc" depends="compile" description="GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="${prod.src}" />
+				<pathelement location="${prod.libs.dir}/gxt.jar" />
+				<pathelement location="gwt-2.3.0/validation-api-1.0.0.GA-sources.jar" />
+				<pathelement location="gwt-2.3.0/validation-api-1.0.0.GA.jar" />
+				<pathelement location="gwt-2.3.0/gwt-dev.jar" />
+				<pathelement location="gwt-2.3.0/gwt-user.jar" />
+				<pathelement location="${prod.libs.dir}/persistence-api-1.0.jar" />
+			</classpath>
+			<arg value="-logLevel" />
+			<arg value="INFO" />
+			<arg value="-style" />
+			<!--<arg value="PRETTY"/>-->
+			<arg value="OBF" />
+			<jvmarg value="-Xmx256M" />
+			<arg value="com.moogu.dcs.dcsapp" />
+		</java>
+	</target>
+
+	<target name="run-sqlplus" depends="compile_test">
+		<java failonerror="true" classname="com.moogu.dcs.test.common.SqlScriptRunner">
+			<classpath refid="test.classpath" />
+			<arg value="${sql.dir}" />
+		</java>
+	</target>
+
+	<target name="test" depends="compile_test">
+		<mkdir dir="${test.reports.dir}" />
+		<junit printsummary="true" haltonfailure="false" haltonerror="true" fork="true" failureproperty="test.failures" clonevm="true" dir="dist">
+			<assertions>
+				<enable />
+			</assertions>
+			<classpath refid="test.classpath" />
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<batchtest todir="${test.reports.dir}">
+				<fileset dir="${test.classes.dist}">
+					<include name="**/*Test.class" />
+					<exclude name="**/Abstract*Test.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="war" depends="gwtc">
+		<mkdir dir="${war.dir}" />
+		<copy todir="${war.dir}">
+			<fileset dir="war">
+				<exclude name="WEB-INF/classes/**/*" />
+			</fileset>
+		</copy>
+
+		<delete dir="${war.dir}/WEB-INF/classes" includeemptydirs="true" />
+		<copy todir="${war.dir}/WEB-INF/classes" overwrite="true">
+			<fileset dir="${prod.classes.dist}" />
+		</copy>
+		<copy todir="${war.dir}/WEB-INF/classes" overwrite="true">
+			<fileset file="config/environment/REMOTE/log4j.properties" />
+		</copy>
+		<replace file="${war.dir}/WEB-INF/classes/log4j.properties">
+			<replacetoken>
+				<![CDATA[${LOG4J_LOGDIR}]]>
+			</replacetoken>
+		</replace>
+
+		<zip destfile="dist/dcs.war" basedir="${war.dir}" />
+	</target>
+
+	<target name="wsdl2java" description="Generates java bindings for dcs wsdl files">
+		<taskdef resource="axis-tasks.properties" classpathref="prod.compile.libs" />
+		<axis-wsdl2java output="${prod.src}" url="${wsdl.dir}/IERPservice.wsdl" all="true" testcase="true" verbose="true">
+			<mapping namespace="http://os-x.eu" package="com.moogu.dcs.server.ws.ierp" />
+			<mapping namespace="http://schemas.datacontract.org/2004/07/BDEsvc.Service.ERP" package="com.moogu.dcs.server.ws.datatypes" />
+		</axis-wsdl2java>
+	</target>
+</project>

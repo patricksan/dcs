@@ -1,6 +1,16 @@
+#files
+.DS_Store
+
 *.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Folders
+dist/
+war/WEB-INF/classes
+war/WEB-INF/DcsWSService
+war/WEB-INF/deploy
+war/dcsapp

@@ -1,0 +1,320 @@
+<wsdl:definitions xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:impl="http://ws.server.dcs.moogu.com" xmlns:intf="http://ws.server.dcs.moogu.com"
+	xmlns:tns1="http://web.ilms.be.fortis.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ws.server.dcs.moogu.com">
+	<!-- WSDL created by Apache Axis version: 1.4 Built on Apr 22, 2006 (06:55:48 PDT) --> 
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified" targetNamespace="http://web.ilms.be.fortis.com">
+			<import namespace="http://ws.server.dcs.moogu.com" />
+			<element name="callOperation">
+				<complexType>
+					<sequence>
+						<element name="operationName" type="xsd:string" />
+						<element name="arguments" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="callOperationResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="callOperationReturn"
+							type="impl:MapEntryVO" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getSiteConfiguration">
+				<complexType />
+			</element>
+			<element name="getSiteConfigurationResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getSiteConfigurationReturn"
+							type="impl:SiteConfiguration" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getMachineConfiguration">
+				<complexType />
+			</element>
+			<element name="getMachineConfigurationResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getMachineConfigurationReturn"
+							type="impl:MachineConfiguration" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getShiftConfiguration">
+				<complexType />
+			</element>
+			<element name="getShiftConfigurationResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getShiftConfigurationReturn"
+							type="impl:ShiftConfiguration" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getMachineActualStates">
+				<complexType>
+					<sequence>
+						<element name="siteId" type="xsd:int" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getMachineActualStatesResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getMachineActualStatesReturn"
+							type="impl:MachineState" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getShiftResults">
+				<complexType>
+					<sequence>
+						<element name="siteId" type="xsd:int" />
+						<element name="shiftId" type="xsd:int" />
+						<element name="date" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getShiftResultsResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getShiftResultsReturn"
+							type="impl:ShiftResult" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getLatestShiftResults">
+				<complexType>
+					<sequence>
+						<element name="siteId" type="xsd:int" />
+						<element name="shiftId" type="xsd:int" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="getLatestShiftResultsResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" name="getLatestShiftResultsReturn"
+							type="impl:ShiftResult" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified" targetNamespace="http://ws.server.dcs.moogu.com">
+			<complexType name="MapEntryVO">
+				<sequence>
+					<element name="key" nillable="true" type="xsd:string" />
+					<element name="value" nillable="true" type="xsd:string" />
+				</sequence>
+			</complexType>
+			<complexType name="SiteConfiguration">
+				<sequence>
+					<element name="siteId" type="xsd:int" />
+					<element name="siteName" nillable="true" type="xsd:string" />
+				</sequence>
+			</complexType>
+			<complexType name="MachineConfiguration">
+				<sequence>
+					<element name="machineClassId" type="xsd:int" />
+					<element name="machineClassName" nillable="true" type="xsd:string" />
+					<element name="machineDescription" nillable="true" type="xsd:string" />
+					<element name="machineId" type="xsd:int" />
+					<element name="machineName" nillable="true" type="xsd:string" />
+					<element name="shiftModelId" type="xsd:int" />
+					<element name="siteId" type="xsd:int" />
+				</sequence>
+			</complexType>
+			<complexType name="ShiftConfiguration">
+				<sequence>
+					<element name="shiftId" type="xsd:int" />
+					<element name="shiftLength" type="xsd:int" />
+					<element name="shiftModelId" type="xsd:int" />
+					<element name="shiftModelName" nillable="true" type="xsd:string" />
+					<element name="shiftName" nillable="true" type="xsd:string" />
+					<element name="shiftStart" type="xsd:int" />
+				</sequence>
+			</complexType>
+			<complexType name="MachineState">
+				<sequence>
+					<element name="dateCreated" nillable="true" type="xsd:string" />
+					<element name="machineId" type="xsd:int" />
+					<element name="speed" type="xsd:int" />
+					<element name="state" type="xsd:int" />
+				</sequence>
+			</complexType>
+			<complexType name="ShiftResult">
+				<sequence>
+					<element name="counterIn" type="xsd:int" />
+					<element name="counterOut" type="xsd:int" />
+					<element name="machineId" type="xsd:int" />
+					<element name="timeRun" type="xsd:int" />
+				</sequence>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="getLatestShiftResultsRequest">
+		<wsdl:part element="tns1:getLatestShiftResults" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="callOperationRequest">
+		<wsdl:part element="tns1:callOperation" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getMachineConfigurationResponse">
+		<wsdl:part element="tns1:getMachineConfigurationResponse"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getSiteConfigurationRequest">
+		<wsdl:part element="tns1:getSiteConfiguration" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getShiftResultsRequest">
+		<wsdl:part element="tns1:getShiftResults" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="callOperationResponse">
+		<wsdl:part element="tns1:callOperationResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getMachineActualStatesResponse">
+		<wsdl:part element="tns1:getMachineActualStatesResponse"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getMachineConfigurationRequest">
+		<wsdl:part element="tns1:getMachineConfiguration" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getShiftResultsResponse">
+		<wsdl:part element="tns1:getShiftResultsResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getMachineActualStatesRequest">
+		<wsdl:part element="tns1:getMachineActualStates" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getShiftConfigurationResponse">
+		<wsdl:part element="tns1:getShiftConfigurationResponse"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getLatestShiftResultsResponse">
+		<wsdl:part element="tns1:getLatestShiftResultsResponse"
+			name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getShiftConfigurationRequest">
+		<wsdl:part element="tns1:getShiftConfiguration" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getSiteConfigurationResponse">
+		<wsdl:part element="tns1:getSiteConfigurationResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="DcsWS">
+		<wsdl:operation name="callOperation">
+			<wsdl:input message="impl:callOperationRequest" name="callOperationRequest" />
+			<wsdl:output message="impl:callOperationResponse" name="callOperationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getSiteConfiguration">
+			<wsdl:input message="impl:getSiteConfigurationRequest"
+				name="getSiteConfigurationRequest" />
+			<wsdl:output message="impl:getSiteConfigurationResponse"
+				name="getSiteConfigurationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getMachineConfiguration">
+			<wsdl:input message="impl:getMachineConfigurationRequest"
+				name="getMachineConfigurationRequest" />
+			<wsdl:output message="impl:getMachineConfigurationResponse"
+				name="getMachineConfigurationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getShiftConfiguration">
+			<wsdl:input message="impl:getShiftConfigurationRequest"
+				name="getShiftConfigurationRequest" />
+			<wsdl:output message="impl:getShiftConfigurationResponse"
+				name="getShiftConfigurationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getMachineActualStates">
+			<wsdl:input message="impl:getMachineActualStatesRequest"
+				name="getMachineActualStatesRequest" />
+			<wsdl:output message="impl:getMachineActualStatesResponse"
+				name="getMachineActualStatesResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getShiftResults">
+			<wsdl:input message="impl:getShiftResultsRequest" name="getShiftResultsRequest" />
+			<wsdl:output message="impl:getShiftResultsResponse" name="getShiftResultsResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getLatestShiftResults">
+			<wsdl:input message="impl:getLatestShiftResultsRequest"
+				name="getLatestShiftResultsRequest" />
+			<wsdl:output message="impl:getLatestShiftResultsResponse"
+				name="getLatestShiftResultsResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DcsWSSoapBinding" type="impl:DcsWS">
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="callOperation">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="callOperationRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="callOperationResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSiteConfiguration">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getSiteConfigurationRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getSiteConfigurationResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMachineConfiguration">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getMachineConfigurationRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getMachineConfigurationResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getShiftConfiguration">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getShiftConfigurationRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getShiftConfigurationResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMachineActualStates">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getMachineActualStatesRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getMachineActualStatesResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getShiftResults">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getShiftResultsRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getShiftResultsResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getLatestShiftResults">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getLatestShiftResultsRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getLatestShiftResultsResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DcsWS">
+		<wsdl:port binding="impl:DcsWSSoapBinding" name="DcsWS">
+			<wsdlsoap:address location="http://127.0.0.1:8888/services/DcsWS" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
